@@ -1,1 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Correct Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS CDN -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <title>Enactus Website</title>
+</head>
+<body>
 
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-transparent custom-navbar">
+    <div class="container">
+
+      <a class="navbar-brand" href="#">
+        <img src="assets/images/qasabna logo.png" alt="Logo" style="height: 40px;">
+      </a>
+
+
+     <button class="navbar-toggler position-relative" type="button" data-bs-toggle="collapse"
+  data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false"
+  aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  <span id="menu-indicator"
+        class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle d-none"
+        style="width: 10px; height: 10px;"></span>
+</button>
+
+
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a class="nav-link text-dark" href="index.html" target="_parent ">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="index.html#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="index.html#contact-us">Contact us</a>
+          </li>
+         <a class="nav-link text-dark" href="products.html" target="_blank">All Products</a>
+
+
+          <li class="nav-item position-relative">
+  <a class="nav-link text-dark"href="#cart" style="padding-right: 1.5rem;">
+    <i class="bi bi-cart3 fs-5 position-relative">
+      <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+        0
+      </span>
+    </i>
+  </a>
+</li>
+      <!-- --------------------------------- Profile ------------------------------ -->
+      <!-- Profile Icon -->
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="profileIcon" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-person-circle fs-5"></i>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" id="profileDropdown">
+  </ul>
+</li>
+
+
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- --------------------------------------- Cart Sidebar Section ------------------------------------ -->
+
+<div class="offcanvas offcanvas-end w-50" tabindex="-1" id="cartModal">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul id="cartItemsList" class="list-group mb-3"></ul>
+    <p class="fw-bold text-end">Total: <span id="cartTotal">0.00 EG</span></p>
+    <a href="" id="clear" class="btn btn-danger btn-remove w-100 justify-content-center">Clear all products</a>
+    <!-- <button class="btn btn-success w-100 rounded-5" onclick="showPaymentOptions()">Secure Checkout</button> -->
+    <div class="container my-4">
+  <div class="d-flex flex-wrap gap-3 justify-content-center">
+    <!-- PayPal Button -->
+    <button type="button" class="btn btn-outline-primary d-flex align-items-center gap-2" onclick="startPayment('PayPal')">
+      <i class="fab fa-cc-paypal fa-lg"></i>
+      PayPal
+    </button>
+
+    <!-- Credit Card Button -->
+    <button type="button" class="btn btn-outline-success d-flex align-items-center gap-2" onclick="startPayment('Credit Card')">
+      <i class="fas fa-credit-card fa-lg"></i>
+      Credit Card
+    </button>
+
+    <!-- Cash on Delivery Button -->
+    <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-2" onclick="startPayment('Cash on Delivery')">
+      <i class="fas fa-money-bill-wave fa-lg"></i>
+      Cash on Delivery
+    </button>
+
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- --------------------------------------- Profile Sidebar Section ------------------------------------ -->
+<div class="offcanvas offcanvas-end w-50" tabindex="-1" id="profileModal">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Your Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <h1>Your profile</h1>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- ---------------------------------- Payment Modal Section -------------------------------- -->
+
+<div class="modal fade" id="paymentSection" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Payment Confirmation</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+      <form id="paymentForm">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" id="firstName" class="form-control" placeholder="John"  autofocus required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" id="lastName" class="form-control" placeholder="Doe" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <input type="text" id="address" class="form-control" placeholder="123 Street, City" required>
+      </div>
+      <input type="hidden" id="selectedPaymentMethod" name="paymentMethod" />
+
+      <div id="cardDetails" style="display: none;">
+        <div class="mb-3">
+          <label class="form-label">Card Number</label>
+          <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Expiry</label>
+            <input type="text" class="form-control" placeholder="MM/YY" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">CVV</label>
+            <input type="text" class="form-control" placeholder="123" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="orderNotes" class="form-label">Order Notes (optional)</label>
+        <textarea id="orderNotes" class="form-control" rows="3" placeholder="Any specific requests or instructions?" required></textarea>
+      </div>
+
+      <button type="button" onclick="confirmOrder()" class="btn btn-success w-100 rounded-5 mt-3">Confirm Order</button>
+    </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------- Order Confirmation Message --------------------------------- -->
+<div class="modal fade" id="orderConfirmedModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4 text-center">
+      <h5 class="mb-3 text-success">Order Confirmed!</h5>
+      <p class="mb-0">Thank you for your purchase. Your payment method: <strong id="confirmationMethod"></strong></p>
+      <button type="button" class="btn btn-dark mt-4" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+
+
+
+<main class="py-5 bg-light mt-5">
+  <div class="container">
+    <h2 class="text-center mb-4">All Products</h2>
+
+    <div class="row justify-content-center">
+     <!-- Product Card (Flour) -->
+<div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/flour mock.png" class="card-img-top fixed-img" style="padding-top: 80px;" alt="Flour">
+    <div class="card-body text-center d-flex flex-column align-items-center">
+      <h5 class="card-title">Flour</h5>
+      <p class="text-muted">8.00 EG</p>
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Flour 500g','assets/images/flour mock.png',8.00)">
+          Add to Cart
+        </button>
+      </div>
+      <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalFlour">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Flour Modal -->
+<div class="modal fade" id="productModalFlour" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Flour 500g</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/flour mock.png" class="img-fluid col-md-6" alt="Flour">
+        <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 8.00 EG</p>
+          <p><strong>Characteristics:</strong></p>
+          <ul><li>Gluten-free</li><li>Made from sugarcane bagasse</li><li>High in fiber</li></ul>
+          <p><strong>Benefits:</strong></p>
+          <ul><li>Supports digestive health</li><li>Eco-friendly</li><li>Diabetic-friendly</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Product Card (oil) -->
+<div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/oil mock.png" class="card-img-top fixed-img" alt="oil">
+    <div class="card-body text-center d-flex flex-column align-items-center">
+      <h5 class="card-title">Cooking Oil</h5>
+      <p class="text-muted">45.00 EG</p>
+
+      <!-- Add to Cart Button -->
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Cooking Oil 1L','assets/images/oil mock.png',45.00)">
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- View Product Details Link -->
+      <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalOil">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModalOil" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Cooking Oil 1L</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/oil mock.png" class="img-fluid col-md-6" alt="oil">
+
+        <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 45.00 EG</p>
+          <p><strong>Characteristics:</strong></p>
+          <ul><li>Cold-pressed</li><li>Rich in antioxidants</li><li>Light flavor</li></ul>
+          <p><strong>Benefits:</strong></p>
+          <ul><li>Heart-healthy</li><li>Ideal for cooking</li><li>Sustainable source</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Product Card (sugar) -->
+<div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/sugar mock 1.png" class="card-img-top fixed-img" alt="sugar">
+    <div class="card-body text-center d-flex flex-column align-items-center">
+      <h5 class="card-title">Sugar</h5>
+      <p class="text-muted">25.00 EG</p>
+
+      <!-- Add to Cart Button -->
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Sugar 1kg','assets/images/sugar mock 1.png',25.00)">
+          Add to Cart
+        </button>
+      </div>
+
+      <!-- View Product Details Link -->
+      <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalSugar">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModalSugar" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Sugar 1kg</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/sugar mock 1.png" class="img-fluid col-md-6" alt="sugar">
+
+        <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 25.00 EG</p>
+          <p><strong>Characteristics:</strong></p>
+          <ul><li>Unrefined</li><li>No additives</li><li>Golden color</li></ul>
+          <p><strong>Benefits:</strong></p>
+          <ul><li>Natural energy source</li><li>Eco-conscious processing</li><li>Healthier than refined sugar</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<hr class="spacer-line" />
+      <!-- Product Card (filter) -->
+      
+<!-- <div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/s-l400.jpg" class="card-img-top fixed-img" alt="filter">
+    <div class="card-body text-center">
+      <h5 class="card-title">Water Filter</h5>
+      <p class="text-muted">100.00 EG</p>
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Water Filter','assets/images/s-l400.jpg',100)">
+          Add to Cart
+        </button>
+      </div> -->
+      <!-- View More Link -->
+      <!-- <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalWater">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Product Detail Modal -->
+<!-- <div class="modal fade" id="productModalWater" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Water Filter</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/s-l400.jpg" class="img-fluid col-md-6" alt="Water Filter">
+
+        <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 100.00 EG</p>
+          <p><strong>Specifications:</strong></p>
+          <ul>
+            <li>Removes impurities</li>
+            <li>Eco-friendly</li>
+            <li>Reusable</li>
+          </ul>
+          <p><strong>Benefits:</strong></p>
+          <ul>
+            <li>Clean and safe water</li>
+            <li>Reduces plastic waste</li>
+            <li>Easy to install</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Product Card (compost) -->
+      
+<div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/compost angle 1.png"  class="card-img-top fixed-img" alt="compost">
+    <div class="card-body text-center">
+      <h5 class="card-title">Compost</h5>
+      <p class="text-muted">20.00 EG</p>
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Compost 3kg','assets/images/compost angle 1.png',20)">
+          Add to Cart
+        </button>
+      </div>
+      <!-- View More Link -->
+      <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalCompost">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModalCompost" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Compost 3kg</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/compost angle 1.png" class="img-fluid col-md-6" alt="compost">
+
+         <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 20.00 EG</p>
+          <p><strong>Characteristics:</strong></p>
+          <ul><li>Enriched organic matter</li><li>pH-balanced</li><li>No chemicals</li></ul>
+          <p><strong>Benefits:</strong></p>
+          <ul><li>Improves soil fertility</li><li>Supports sustainable farming</li><li>Enhances root growth</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Product Card (pesticide) -->
+      
+<div class="col-lg-3 col-md-4 mb-4">
+  <div class="card h-100">
+    <img src="assets/images/insectcide.png" class="card-img-top fixed-img"  alt="pesticide">
+    <div class="card-body text-center">
+      <h5 class="card-title">Pesticide</h5>
+      <p class="text-muted">40.00 EG</p>
+      <div class="mb-2 w-100">
+        <button class="btn btn-outline-success w-100"
+          onclick="openPopup('Pesticide 1L','assets/images/insectcide.png',40)">
+          Add to Cart
+        </button>
+      </div>
+      <!-- View More Link -->
+      <div>
+        <a href="#" class="btn btn-close-white p-0 text-decoration-underline" data-bs-toggle="modal" data-bs-target="#productModalPesticide">
+          View product details
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModalPesticide" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">Pesticide 1L</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body d-flex flex-wrap">
+        <img src="assets/images/insectcide.png" class="img-fluid col-md-6" alt="pesticide">
+
+         <div class="product-details col-md-6 px-3">
+          <p><strong>Price:</strong> 40.00 EG</p>
+          <p><strong>Characteristics:</strong></p>
+          <ul><li>Enriched organic matter</li><li>pH-balanced</li><li>No chemicals</li></ul>
+          <p><strong>Benefits:</strong></p>
+          <ul><li>Improves soil fertility</li><li>Supports sustainable farming</li><li>Enhances root growth</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------------------ Pop-up Modal ------------------------ -->
+ <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="popupTitle" class="modal-title"></h5>
+        <button type="button" class="btn-close" onclick="closePopup()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-wrap">
+        <img id="popupImage" src="" class="img-fluid col-md-6" alt="Product">
+
+        <div class="col-md-6 px-3">
+
+          <label for="popupQty" class="form-label">Quantity:</label>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" onclick="popupDecreaseQty()">-</button>
+            <input type="number" id="popupQty" class="form-control text-center" value="1" min="1" readonly>
+            <button class="btn btn-outline-secondary" onclick="popupIncreaseQty()">+</button>
+          </div>
+
+          <p id="popupPrice" class="fw-bold"></p>
+          <button class="btn btn-success w-100" onclick="confirmAddToCart()">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Toast Message -->
+  <div id="toast" style="height: 80px; z-index: 999;"   class="toast align-items-center text-white bg-success border-0 position-fixed bottom-0 end-0 m-5" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastBody">Success message here</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
+    <!-- Back to Home -->
+    <div class="text-center mt-5">
+      <a href="index.html" class="btn btn-outline-success rounded-5">← Return to Home</a>
+    </div>
+  </div>
+</main>
+
+      <!-- ---------------------------- Footer ---------------------------- -->
+    <footer class="bg-white py-5">
+
+      <div class="container">
+        <div class="row"> 
+          <a class="navbar-brand" href="#">
+  <img src="assets/images/qasabna logo.png" alt="Logo" style="height: 40px;">
+</a>
+        </div>
+        <!-- Contact Info & Links -->
+        <div class="row gy-4 justify-content-between">
+
+          <!-- Contact Info -->
+          <div class="col-md-4">
+            <h5 class="mb-3">Contact Info</h5>
+            <p><strong>Email:</strong> hello@qasbna.com</p>
+            <p><strong>Phone:</strong> +20 106 588 8392</p>
+            <p><strong>Location:</strong> El-Minya , Egypt</p>
+          </div>
+
+          <!-- Contact Links -->
+          <div class="col-md-7">
+            <div class="row">
+              <!-- First Row of Links -->
+              <div class="col-12 col-sm-6 mb-3">
+                <h6 class="mb-2">Quick Links</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="#hero" class="text-decoration-none text-dark">Home</a>
+                  <a href="#" class="text-decoration-none text-dark">Shop All</a>
+                  <a href="#" class="text-decoration-none text-dark">Our Mission</a>
+                  <a href="#contact-us" class="text-decoration-none text-dark">Contact</a>
+                  <a href="#" class="text-decoration-none text-dark">FAQ</a>
+                </div>
+              </div>
+
+              <!-- Second Row of Links -->
+              <div class="col-12 col-sm-6 mb-3">
+                <h6 class="mb-2">Policies</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <a href="#" class="text-decoration-none text-dark">Terms & Conditions</a>
+                  <a href="#" class="text-decoration-none text-dark">Privacy Policy</a>
+                  <a href="#" class="text-decoration-none text-dark">Shipping Policy</a>
+                  <a href="#" class="text-decoration-none text-dark">Refund Policy</a>
+                  <a href="#" class="text-decoration-none text-dark">Cookie Policy</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer Bottom -->
+        <hr class="my-4" />
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+          <p class="mb-2 mb-md-0">© 2025 Qasbna. All rights reserved.</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="text-decoration-none text-dark">Facebook</a>
+            <a href="#" class="text-decoration-none text-dark">Instagram</a>
+            <a href="#" class="text-decoration-none text-dark">Twitter</a>
+            <a href="#" class="text-decoration-none text-dark">YouTube</a>
+          </div>
+        </div>
+
+    </div>
+  </footer>
+  
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" class="btn btn-success position-fixed d-none"
+      style="bottom: 20px; right: 20px; z-index: 9999; border-radius: 50px; width: 50px; height: 50px;">
+      <i class="fas fa-arrow-up"></i>
+    </button> 
+
+<!-- ----------------------------------------- profile -------------------------------------- -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header border-0">
+        <h5 class="modal-title">Register / Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form id="authForm">
+          <div class="mb-3">
+            <label for="authName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="authName" placeholder="John Doe" required>
+          </div>
+          <div class="mb-3">
+            <label for="authEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="authEmail" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="authPhone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="authPhone" placeholder="01012345678" required>
+          </div>
+          <div class="mb-3">
+            <label for="authAddress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="authAddress" placeholder="123 Main St, Cairo" required>
+          </div>
+          <div class="mb-3">
+            <label for="authPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="authPassword" required>
+          </div>
+       <button type="submit" class="btn btn-dark w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ----------------------------------- Account Modal ------------------------ -->
+<div class="modal fade" id="accountModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title">Account Info</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+       <div class="text-center mb-4">
+  <i class="bi bi-person-circle" style="font-size: 80px; color: #198754;"></i>
+</div>
+      <div class="modal-body" id="accountDetails">
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- --------------------order modal------------------------- -->
+<div class="modal fade" id="ordersModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 shadow rounded-4">
+      <div class="modal-header">
+        <h5 class="modal-title">Past Orders</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="ordersContent">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div id="cartModalContainer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>
