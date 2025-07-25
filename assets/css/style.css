@@ -1,1 +1,385 @@
+:root {
+  --bs-success: #38b54a;
+}
 
+
+/* ----------------------------- Typography ----------------------------- */
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3 {
+  color: var(--text-color);
+}
+h4, h5, h6, p, a, strong, label {
+  color: var(--text-color);
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  font-size: 30px;
+}
+
+/* ----------------------------- Navbar ----------------------------- */
+.custom-navbar {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  z-index: 1030;
+}
+.custom-cart-icon {
+  color: #000000;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 70px;
+  }
+}
+@media (max-width: 991px) {
+  body {
+    padding-top: 90px;
+  }
+}
+section {
+  scroll-margin-top: 60px;
+}
+
+#cart-count {
+  font-size: 0.65rem;
+  min-width: 1.2em;
+  padding: 2px 6px;
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .bi-cart3 {
+    font-size: 1.2rem;
+  }
+  #cart-count {
+    top: 0;
+    transform: translate(50%, -50%);
+  }
+}
+/* --------------------------------------- Cart Section Style ---------------------------------- */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body label {
+  font-weight: 500;
+}
+
+/* ----------------------------- Hero Section ----------------------------- */
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 20px;
+}
+.hero-section h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+.hero-section h4 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.hero-btns {
+  padding: 12px 24px;
+  background-color: #3a3938;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.hero-btns:hover {
+  background-color: #222;
+}
+
+/* ----------------------------- Description Section ----------------------------- */
+.description-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 70px 100px;
+  background-color: white;
+  gap: 100px;
+  flex-wrap: wrap;
+}
+.description-text {
+  flex: 1;
+  max-width: 600px;
+}
+.description-text h1 {
+  font-size: 60px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+.description-text p {
+  font-size: 22px;
+  margin-bottom: 70px;
+}
+.shop-btn {
+  background-color: var(--button);
+  color: white;
+  padding: 14px 28px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.shop-btn:hover {
+  background-color: #222;
+}
+.img-fluid {
+  width: 600px;
+  height: 500px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+/* ----------------------------- Product Section ----------------------------- */
+.sub-hero-section {
+  background-color: #ddddcc;
+  padding: 40px 100px;
+}
+.section-title {
+  text-align: left;
+  margin-bottom: 40px;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 20px;
+}
+.product-card {
+  background: #f9f9f6;
+  border: 0.5px solid #36362b;
+  padding: 5px;
+  width: 400px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.product-card h3 {
+  font-size: 15px;
+}
+.product-card img {
+  width: 100%;
+}
+.price {
+  margin-bottom: 10px;
+}
+.add-btn {
+  background-color: #36362b;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 200px;
+}
+.add-btn:hover {
+  background-color: #3a3938;
+}
+
+/* ----------------------------- Popup Modal ----------------------------- */
+.popup-modal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  z-index: 100;
+  width: 900px;
+  height: 500px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.popup-content {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+.popup-content img {
+  width: 500px;
+  height: 490px;
+  object-fit: cover;
+}
+.popup-details {
+  margin-top: 50px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.popup-details select {
+  width: 100%;
+  margin: 20px 0 35px;
+  padding: 13px;
+}
+.popup-details input {
+  width: 45px;
+  height: 100%;
+  text-align: center;
+  border: none;
+  font-size: 15px;
+  background-color: #fff;
+}
+.popup-qty-box {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #626060;
+  border-radius: 3px;
+  overflow: hidden;
+  height: 40px;
+  margin-bottom: 20px;
+}
+.popup-qty-box button {
+  width: 45px;
+  height: 100%;
+  font-size: 18px;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+.popup-price {
+  font-size: 13px;
+  margin-top: 10px;
+}
+.confirm-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #3a3938;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.confirm-btn:hover {
+  background-color: #222;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* ----------------------------- Toast ----------------------------- */
+.toast {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background-color: #3a3938;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------- Contact Section ----------------------------- */
+.contact-info-section {
+  background-size: cover;
+  width: 100%;
+}
+.contact-info-section a {
+  font-size: 14px;
+}
+.custom-hr {
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+
+/* ----------------------------- Footer ----------------------------- */
+footer {
+  padding-bottom: 10px;
+  font-size: 11px;
+}
+.footer-row,
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+}
+.footer-row a,
+.socials a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.footer-row a:hover,
+.socials a:hover {
+  color: var(--button);
+  text-decoration: underline;
+}
+
+
+#menu-notify-dot {
+  width: 10px;
+  height: 10px;
+}
+#menu-indicator {
+  width: 10px;
+  height: 10px;
+  z-index: 10;
+}
+.modal-content {
+  border-radius: 15px;
+  max-width: 400px;
+  margin: auto;
+}
+.spacer-line {
+  border: none;
+  height: 5px; 
+  background: transparent;
+  margin: 0;
+}
+.fixed-img {
+  height: 400px;         
+  object-fit: cover;    
+  width: 100%;           
+}
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.dropdown-item {
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #eafbee;
+}
+#ordersContent ul {
+  padding-left: 0;
+}
